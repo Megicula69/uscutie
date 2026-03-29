@@ -1,26 +1,207 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-outfit);
+  --font-handwritten: var(--font-caveat);
+
+  --color-cream: #fffaf0;
+  --color-blush: #ffb6c1;
+  --color-soft-brown: #8b4513;
+  --color-pastel-pink: #ffd1dc;
+  --color-pastel-lavender: #e6e6fa;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #fffdf9;
+  --foreground: #4a3728;
+  --card: #ffffff;
+  --accent: #ffb6c1;
+  scroll-padding-top: 100px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    margin: 0;
   }
 }
 
-body {
+@layer components {
+  .section-container {
+    min-height: 100vh;
+    padding-block: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  /* Polaroid Effect */
+  .polaroid {
+    background: white;
+    padding: 10px 10px 40px 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+
+  .polaroid-caption {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: var(--font-handwritten);
+    font-size: 1.25rem;
+    color: #4a3728;
+  }
+
+  /* Tape Effect */
+  .tape {
+    position: absolute;
+    width: 60px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    backdrop-filter: blur(2px);
+    z-index: 10;
+  }
+
+  /* Sticky Note */
+  .sticky-note {
+    background: #fffb8f;
+    padding: 1rem;
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.08);
+    font-family: var(--font-handwritten);
+    border-radius: 2px;
+  }
+
+  /* Scrapbook Page UI */
+  .scrapbook-bg {
+    background-image: 
+      radial-gradient(#e5e7eb 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 3s infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(-5%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+    50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-20px) rotate(3deg); }
+  }
+
+  /* Photobooth Strip */
+  .photobooth-strip {
+    background: white;
+    padding: 1.5rem 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    border-radius: 2px;
+    width: fit-content;
+  }
+
+  .photobooth-strip::before,
+  .photobooth-strip::after {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    bottom: 1rem;
+    width: 6px;
+    background-image: radial-gradient(circle, #eee 2px, transparent 2px);
+    background-size: 100% 20px;
+  }
+
+  .photobooth-strip::before { left: 4px; }
+  .photobooth-strip::after { right: 4px; }
+
+  .film-frame {
+    width: 150px;
+    aspect-ratio: 1/1;
+    background: #fafafa;
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Vintage Film Frame */
+  .vintage-frame {
+    background: #1a1a1a;
+    padding: 15px 15px 35px 15px;
+    border-radius: 2px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border: 1px solid #333;
+  }
+
+  .vintage-frame::before {
+    content: "KODAK 400TX";
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    font-size: 8px;
+    color: #eab308;
+    font-family: monospace;
+  }
+
+  /* Note Photo Frame */
+  .note-frame {
+    background: #fff;
+    padding: 8px;
+    box-shadow: 2px 5px 15px rgba(0,0,0,0.05);
+    position: relative;
+    border: 1px solid #eee;
+  }
+
+  .note-paper {
+    background: #fdfdfd;
+    background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 100% 20px;
+    padding: 20px;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
+    border-radius: 0 0 2px 2px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
 }
